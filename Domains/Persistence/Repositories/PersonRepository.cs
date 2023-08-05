@@ -28,7 +28,9 @@ public class PersonRepository : BaseRepository, IPersonRepository
     {
         return await _context.Persons
             .Include(x => x.Address)
-            .Include(x => x.HealthMetrics)
+            .Include(x => x.BloodPressures)
+            .Include(x => x.BloodSugars)
+            .Include(x => x.BodyTemperatures)
             .Include(x => x.Relatives)
             .FirstOrDefaultAsync(x => x.PersonId == personId);
     }
@@ -37,7 +39,9 @@ public class PersonRepository : BaseRepository, IPersonRepository
     {
         var persons = await _context.Persons
             .Include(x => x.Address)
-            .Include(x => x.HealthMetrics)
+            .Include(x => x.BloodPressures)
+            .Include(x => x.BloodSugars)
+            .Include(x => x.BodyTemperatures)
             .Include(x => x.Relatives)
             .Where(x => personIds.Contains(x.PersonId))
             .ToListAsync();
@@ -69,11 +73,16 @@ public class PersonRepository : BaseRepository, IPersonRepository
     public async Task DeleteAsync(string personId)
     {
         var person = await _context.Persons
+            .Include(x => x.Address)
+            .Include(x => x.BloodPressures)
+            .Include(x => x.BloodSugars)
+            .Include(x => x.BodyTemperatures)
             .FirstOrDefaultAsync(x => x.PersonId == personId);
 
         if (person is not null)
         {
             _context.Persons.Remove(person);
+            _context.Addresses.Remove(person.Address);
         }
     }
 }

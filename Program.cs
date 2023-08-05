@@ -35,9 +35,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-builder.Services.AddScoped<IHealthMetricRepository, HealthMetricRepository>();
+builder.Services.AddScoped<IBloodPressureRepository, BloodPressureRepository>();
+builder.Services.AddScoped<IBloodSugarRepository, BloodSugarRepository>();
+builder.Services.AddScoped<IBodyTemperatureRepository, BodyTemperatureRepository>();
 
 builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IBloodPressureService, BloodPressureService>();
+builder.Services.AddScoped<IBloodSugarService, BloodSugarService>();
+builder.Services.AddScoped<IBodyTemperatureService, BodyTemperatureService>();
 
 builder.Services.AddAutoMapper(typeof(ModelToViewModelProfile));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

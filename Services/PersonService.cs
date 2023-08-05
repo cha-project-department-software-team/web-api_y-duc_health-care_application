@@ -38,8 +38,9 @@ public class PersonService : IPersonService
     public async Task<bool> UpdatePerson(string personId, UpdatePersonViewModel viewModel)
     {
         var person = await _personRepository.GetAsync(personId) ?? throw new ResourceNotFoundException(nameof(Person), personId);
-        
-        person.Update(viewModel.Name, viewModel.Age, viewModel.PersonType, _mapper.Map<Address>(viewModel.Address), viewModel.Weight, viewModel.Height);
+        var address = _mapper.Map<Address>(viewModel.Address);
+
+        person.Update(viewModel.Name, viewModel.Age, viewModel.PersonType, address, viewModel.Weight, viewModel.Height);
         _personRepository.Update(person);
         
         return await _unitOfWork.CompleteAsync();

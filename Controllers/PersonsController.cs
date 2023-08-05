@@ -1,14 +1,12 @@
-﻿using HealthCareApplication.Domains.Models;
-using HealthCareApplication.Domains.Services;
+﻿using HealthCareApplication.Domains.Services;
 using HealthCareApplication.Resource.Persons;
 using MesMicroservice.Api.Application.Messages;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace HealthCareApplication.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
+[Route("api/[controller]")]
 public class PersonsController : Controller
 {
     private readonly IPersonService _personService;

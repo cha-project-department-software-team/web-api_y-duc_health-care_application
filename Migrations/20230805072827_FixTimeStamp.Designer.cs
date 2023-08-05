@@ -4,6 +4,7 @@ using HealthCareApplication.Domains.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthCareApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230805072827_FixTimeStamp")]
+    partial class FixTimeStamp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,96 +58,6 @@ namespace HealthCareApplication.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("HealthCareApplication.Domains.Models.BloodPressure", b =>
-                {
-                    b.Property<string>("BloodPressureId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<int>("Diastolic")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageLink")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PulseRate")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Systolic")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("BloodPressureId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("BloodPressures");
-                });
-
-            modelBuilder.Entity("HealthCareApplication.Domains.Models.BloodSugar", b =>
-                {
-                    b.Property<string>("BloodSugarId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<string>("ImageLink")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("BloodSugarId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("BloodSugars");
-                });
-
-            modelBuilder.Entity("HealthCareApplication.Domains.Models.BodyTemperature", b =>
-                {
-                    b.Property<string>("BodyTemperatureId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<string>("ImageLink")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("BodyTemperatureId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("BodyTemperatures");
-                });
-
             modelBuilder.Entity("HealthCareApplication.Domains.Models.HealthMetric", b =>
                 {
                     b.Property<string>("HealthMetricId")
@@ -160,6 +73,7 @@ namespace HealthCareApplication.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PersonId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("PulseRate")
@@ -226,44 +140,13 @@ namespace HealthCareApplication.Migrations
                     b.ToTable("PersonPerson");
                 });
 
-            modelBuilder.Entity("HealthCareApplication.Domains.Models.BloodPressure", b =>
-                {
-                    b.HasOne("HealthCareApplication.Domains.Models.Person", "Person")
-                        .WithMany("BloodPressures")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("HealthCareApplication.Domains.Models.BloodSugar", b =>
-                {
-                    b.HasOne("HealthCareApplication.Domains.Models.Person", "Person")
-                        .WithMany("BloodSugars")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("HealthCareApplication.Domains.Models.BodyTemperature", b =>
-                {
-                    b.HasOne("HealthCareApplication.Domains.Models.Person", "Person")
-                        .WithMany("BodyTemperatures")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("HealthCareApplication.Domains.Models.HealthMetric", b =>
                 {
                     b.HasOne("HealthCareApplication.Domains.Models.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId");
+                        .WithMany("HealthMetrics")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Person");
                 });
@@ -296,11 +179,7 @@ namespace HealthCareApplication.Migrations
 
             modelBuilder.Entity("HealthCareApplication.Domains.Models.Person", b =>
                 {
-                    b.Navigation("BloodPressures");
-
-                    b.Navigation("BloodSugars");
-
-                    b.Navigation("BodyTemperatures");
+                    b.Navigation("HealthMetrics");
                 });
 #pragma warning restore 612, 618
         }

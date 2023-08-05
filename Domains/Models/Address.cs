@@ -22,4 +22,13 @@ public class Address
         City = city;
         Country = country;
     }
+
+    public void Update(Address address)
+    {
+        Street = address.Street;
+        Ward = address.Ward;
+        District = address.District;
+        City = address.City;
+        Country = address.Country;
+    }
 }

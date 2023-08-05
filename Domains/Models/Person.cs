@@ -11,13 +11,15 @@ public class Person
     public decimal Weight { get; private set; }
     public decimal Height { get; private set; }
     public List<Person> Relatives { get; private set; }
-    public List<HealthMetric> HealthMetrics { get; private set; }
+    public List<BloodPressure> BloodPressures { get; private set; }
+    public List<BloodSugar> BloodSugars { get; private set; }
+    public List<BodyTemperature> BodyTemperatures { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private Person() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Person(string personId, string name, int age, EPersonType personType, Address address, decimal weight, decimal height, List<Person> relatives, List<HealthMetric> healthMetrics)
+    public Person(string personId, string name, int age, EPersonType personType, Address address, decimal weight, decimal height, List<Person> relatives, List<BloodPressure> bloodPressures, List<BloodSugar> bloodSugars, List<BodyTemperature> bodyTemperatures)
     {
         PersonId = personId;
         Name = name;
@@ -27,7 +29,9 @@ public class Person
         Weight = weight;
         Height = height;
         Relatives = relatives;
-        HealthMetrics = healthMetrics;
+        BloodPressures = bloodPressures;
+        BloodSugars = bloodSugars;
+        BodyTemperatures = bodyTemperatures;
     }
 
     public void Update(string name, int age, EPersonType personType, Address address, decimal weight, decimal height)
@@ -35,7 +39,7 @@ public class Person
         Name = name;
         Age = age;
         PersonType = personType;
-        Address = address;
+        Address.Update(address);
         Weight = weight;
         Height = height;
     }

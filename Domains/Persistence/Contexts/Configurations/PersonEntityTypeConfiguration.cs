@@ -15,7 +15,9 @@ public class PersonEntityTypeConfiguration : IEntityTypeConfiguration<Person>
         builder.Property(x => x.PersonType).IsRequired();
 
         builder.HasOne(x => x.Address).WithOne().HasForeignKey<Person>(x => x.AddressId);
-        builder.HasMany(x => x.HealthMetrics).WithOne(x => x.Person);
+        builder.HasMany(x => x.BloodPressures).WithOne(x => x.Person);
+        builder.HasMany(x => x.BloodSugars).WithOne(x => x.Person);
+        builder.HasMany(x => x.BodyTemperatures).WithOne(x => x.Person);
         builder.HasMany(x => x.Relatives).WithMany();
     }
 }

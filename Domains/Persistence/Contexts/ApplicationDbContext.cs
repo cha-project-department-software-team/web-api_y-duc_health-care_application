@@ -8,7 +8,9 @@ public class ApplicationDbContext : DbContext
 {
     public DbSet<Person> Persons { get; set; }
     public DbSet<Address> Addresses { get; set; }
-    public DbSet<HealthMetric> HealthMetrics { get; set; }
+    public DbSet<BloodPressure> BloodPressures { get; set; }
+    public DbSet<BloodSugar> BloodSugars { get; set; }
+    public DbSet<BodyTemperature> BodyTemperatures { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -16,6 +18,8 @@ public class ApplicationDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new PersonEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new AddressEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new HealthMetricEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new BloodPressureEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new BloodSugarEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new BodyTemperatureEntityTypeConfiguration());
     }
 }
