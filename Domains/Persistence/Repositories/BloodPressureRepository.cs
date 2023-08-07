@@ -32,6 +32,14 @@ public class BloodPressureRepository : BaseRepository, IBloodPressureRepository
             .FirstOrDefaultAsync(x => x.BloodPressureId == bloodPressureId);
     }
 
+    public async Task<BloodPressure?> GetNewestAsync()
+    {
+        return await _context.BloodPressures
+            .Include(x => x.Person)
+            .OrderByDescending(x => x.Timestamp)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<List<BloodPressure>> GetListByTimeQueryAsync(string personId, TimeQuery timeQuery)
     {
         return await _context.BloodPressures

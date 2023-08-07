@@ -32,6 +32,14 @@ public class BodyTemperatureRepository : BaseRepository, IBodyTemperatureReposit
             .FirstOrDefaultAsync(x => x.BodyTemperatureId == bodyTemperatureId);
     }
 
+    public async Task<BodyTemperature?> GetNewestAsync()
+    {
+        return await _context.BodyTemperatures
+            .Include(x => x.Person)
+            .OrderByDescending(x => x.Timestamp)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<List<BodyTemperature>> GetListByTimeQueryAsync(string personId, TimeQuery timeQuery)
     {
         return await _context.BodyTemperatures

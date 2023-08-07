@@ -17,6 +17,7 @@ public class ModelToViewModelProfile : Profile
         CreateMap<Address, AddressViewModel>();
 
         CreateMap<BloodPressure, BloodPressureViewModel>();
+        CreateMap<BloodPressure, BloodPressureMetricViewModel>();
         CreateMap<BloodSugar, BloodSugarViewModel>();
         CreateMap<BodyTemperature, BodyTemperatureViewModel>();
     }

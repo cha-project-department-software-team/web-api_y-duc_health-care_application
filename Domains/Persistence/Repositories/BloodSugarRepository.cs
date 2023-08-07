@@ -32,6 +32,14 @@ public class BloodSugarRepository : BaseRepository, IBloodSugarRepository
             .FirstOrDefaultAsync(x => x.BloodSugarId == bloodSugarId);
     }
 
+    public async Task<BloodSugar?> GetNewestAsync()
+    {
+        return await _context.BloodSugars
+            .Include(x => x.Person)
+            .OrderByDescending(x => x.Timestamp)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<List<BloodSugar>> GetListByTimeQueryAsync(string personId, TimeQuery timeQuery)
     {
         return await _context.BloodSugars

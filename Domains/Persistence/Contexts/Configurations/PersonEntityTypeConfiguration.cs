@@ -18,6 +18,6 @@ public class PersonEntityTypeConfiguration : IEntityTypeConfiguration<Person>
         builder.HasMany(x => x.BloodPressures).WithOne(x => x.Person);
         builder.HasMany(x => x.BloodSugars).WithOne(x => x.Person);
         builder.HasMany(x => x.BodyTemperatures).WithOne(x => x.Person);
-        builder.HasMany(x => x.Relatives).WithMany();
+        builder.HasMany(x => x.Patients).WithMany();
     }
 }

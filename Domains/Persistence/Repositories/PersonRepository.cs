@@ -31,7 +31,7 @@ public class PersonRepository : BaseRepository, IPersonRepository
             .Include(x => x.BloodPressures)
             .Include(x => x.BloodSugars)
             .Include(x => x.BodyTemperatures)
-            .Include(x => x.Relatives)
+            .Include(x => x.Patients)
             .FirstOrDefaultAsync(x => x.PersonId == personId);
     }
 
@@ -42,7 +42,7 @@ public class PersonRepository : BaseRepository, IPersonRepository
             .Include(x => x.BloodPressures)
             .Include(x => x.BloodSugars)
             .Include(x => x.BodyTemperatures)
-            .Include(x => x.Relatives)
+            .Include(x => x.Patients)
             .Where(x => personIds.Contains(x.PersonId))
             .ToListAsync();
 

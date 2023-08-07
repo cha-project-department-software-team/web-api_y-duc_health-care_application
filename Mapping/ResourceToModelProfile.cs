@@ -11,7 +11,7 @@ public class ResourceToModelProfile : Profile
     {
         CreateMap<CreatePersonViewModel, Person>();
 
-        CreateMap<CreateAddressViewModel,  Address>();
+        CreateMap<CreateAddressViewModel, Address>();
         CreateMap<UpdateAddressViewModel, Address>();
     }
 }
