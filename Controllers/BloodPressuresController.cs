@@ -18,22 +18,6 @@ public class BloodPressuresController : Controller
     }
 
     [HttpPost]
-    [Route("HandleImage")]
-    public async Task<IActionResult> HandleImage([FromBody] string imageLink)
-    {
-        try
-        {
-            var result = await _bloodPressureService.HandleImage(imageLink);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            var errorMessage = new ErrorMessage(ex);
-            return BadRequest(errorMessage);
-        }
-    }
-
-    [HttpPost]
     [Route("{personId}")]
     public async Task<IActionResult> CreateBloodPressure([FromRoute] string personId, [FromBody] CreateBloodPressureViewModel bloodPressure)
     {

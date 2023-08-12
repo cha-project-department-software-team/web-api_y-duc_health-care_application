@@ -24,27 +24,6 @@ public class BloodPressureService : IBloodPressureService
         _mapper = mapper;
     }
 
-    public async Task<BloodPressureMetricViewModel> HandleImage(string imageLink)
-    {
-        PythonEngine.PythonPath = @"C:\Users\PC\AppData\Local\Programs\Python\Python311\Lib\site-packages\pythonnet\runtime\Python.Runtime.dll";
-        PythonEngine.Initialize();
-
-        dynamic result;
-        using (Py.GIL())
-        {
-            dynamic py = Py.Import("test");
-            dynamic handle = await py.my_function;
-
-            result = handle(imageLink);
-            Console.WriteLine("Kết quả từ Python: " + result);
-        }
-
-        var metric = new BloodPressureMetricViewModel(result[0], result[1], result[2]);
-
-        PythonEngine.Shutdown();
-        return metric;
-    }
-
     public async Task<BloodPressureViewModel> GetNewestAsync()
     {
         var bloodPressure = await _bloodPressureRepository.GetNewestAsync();

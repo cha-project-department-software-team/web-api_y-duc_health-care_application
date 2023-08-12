@@ -26,25 +26,6 @@ public class BloodSugarService : IBloodSugarService
         _mapper = mapper;
     }
 
-    public async Task<BloodSugarMetricViewModel> HandleImage(string imageLink)
-    {
-        dynamic result;
-        PythonEngine.PythonPath = @"C:\path\to\remote\python";
-        PythonEngine.Initialize();
-
-        using (Py.GIL())
-        {
-            dynamic py = Py.Import("__main__");
-            result = await py.my_module.my_function(imageLink);
-            Console.WriteLine("Kết quả từ Python: " + result);
-        }
-
-        var metric = new BloodSugarMetricViewModel(result);
-
-        PythonEngine.Shutdown();
-        return metric;
-    }
-
     public async Task<BloodSugarViewModel> GetNewestAsync()
     {
         var bloodPressure = await _bloodSugarRepository.GetNewestAsync();

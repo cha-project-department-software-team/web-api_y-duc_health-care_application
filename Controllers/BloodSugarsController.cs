@@ -18,22 +18,6 @@ public class BloodSugarsController : Controller
     }
 
     [HttpPost]
-    [Route("HandleImage")]
-    public async Task<IActionResult> HandleImage([FromBody] string imageLink)
-    {
-        try
-        {
-            var result = await _bloodSugarService.HandleImage(imageLink);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            var errorMessage = new ErrorMessage(ex);
-            return BadRequest(errorMessage);
-        }
-    }
-
-    [HttpPost]
     [Route("{personId}")]
     public async Task<IActionResult> CreateBloodSugar([FromRoute] string personId, [FromBody] CreateBloodSugarViewModel bloodSugar)
     {

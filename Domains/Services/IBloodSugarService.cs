@@ -6,7 +6,6 @@ namespace HealthCareApplication.Domains.Services;
 
 public interface IBloodSugarService
 {
-    public Task<BloodSugarMetricViewModel> HandleImage(string imageLink);
     public Task<BloodSugarViewModel> GetNewestAsync();
     public Task<List<BloodSugarViewModel>> GetBloodSugars(string personId, TimeQuery timeQuery);
     public Task<bool> CreateBloodSugar(string personId, CreateBloodSugarViewModel viewModel);

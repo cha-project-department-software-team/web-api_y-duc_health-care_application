@@ -26,25 +26,6 @@ public class BodyTemperatureService : IBodyTemperatureService
         _mapper = mapper;
     }
 
-    public async Task<BodyTemperatureMetricViewModel> HandleImage(string imageLink)
-    {
-        dynamic result;
-        PythonEngine.PythonPath = @"C:\path\to\remote\python";
-        PythonEngine.Initialize();
-
-        using (Py.GIL())
-        {
-            dynamic py = Py.Import("__main__");
-            result = await py.my_module.my_function(imageLink);
-            Console.WriteLine("Kết quả từ Python: " + result);
-        }
-
-        var metric = new BodyTemperatureMetricViewModel(result);
-
-        PythonEngine.Shutdown();
-        return metric;
-    }
-
     public async Task<BodyTemperatureViewModel> GetNewestAsync()
     {
         var bloodPressure = await _bodyTemperatureRepository.GetNewestAsync();
